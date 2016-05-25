@@ -1,10 +1,10 @@
 {
   "name": "react-discogs-dj",
-  "description": "React client that let's you manage discogs tracks for djing",
+  "description": "React app that let's you manage discogs tracks for djing",
   "main": "server.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/christianalfoni/webpack-express-boilerplate.git"
+    "url": "https://github.com/jackokerman/react-discogs-dj.git"
   },
   "author": "Jack Okerman",
   "license": "MIT",
