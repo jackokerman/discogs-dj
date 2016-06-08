@@ -1,6 +1,6 @@
 {
   "name": "react-discogs-dj",
-  "description": "React app that let's you manage discogs tracks for djing",
+  "description": "React app that lets you manage discogs tracks for djing",
   "main": "server.js",
   "repository": {
     "type": "git",
