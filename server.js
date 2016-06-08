@@ -19,7 +19,7 @@ const Discogs = require('disconnect').Client;
 const col = new Discogs().user().collection();
 
 app.get('/api/collection', (req, res) => {
-  col.getReleases('j0k3rman', 0, {}, (err, data) => {
+  col.getReleases('j0k3rman', 0, req.query, (err, data) => {
     res.json(data);
   });
 });
