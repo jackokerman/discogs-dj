@@ -13,6 +13,8 @@ const CollectionItem = props => {
   );
 };
 
-CollectionItem.propTypes = { release: React.PropTypes.object.isRequired };
+CollectionItem.propTypes = {
+  release: React.PropTypes.object.isRequired,
+};
 
 export default CollectionItem;

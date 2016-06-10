@@ -9,12 +9,11 @@ import {
   Form,
   FormGroup,
   FormControl,
-  Modal,
-  ProgressBar,
 } from 'react-bootstrap';
 
 import CollectionHeader from './CollectionHeader.js';
 import CollectionItem from './CollectionItem.js';
+import LoadingModal from './LoadingModal.js';
 
 export default class CollectionList extends React.Component {
 
@@ -44,8 +43,8 @@ export default class CollectionList extends React.Component {
   }
 
   getCollection() {
-    this.setState({ loading: true });
-    request
+    this.setState({ loading: true }, () => {
+      request
       .get('/api/collection')
       .query({
         page: this.state.activePage,
@@ -64,6 +63,7 @@ export default class CollectionList extends React.Component {
           loading: false,
         });
       });
+    });
   }
 
   handleSelect(activePage) {
@@ -148,19 +148,7 @@ export default class CollectionList extends React.Component {
             </div>
           </Col>
         </Row>
-        <Modal
-          show={this.state.loading}
-          animation={false}
-          bsSize="small"
-          backdrop={false}
-        >
-          <Modal.Header>
-            <Modal.Title>Loading...</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ProgressBar now={100} active />
-          </Modal.Body>
-        </Modal>
+        <LoadingModal show={this.state.loading} />
       </Grid>
     );
   }
