@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ProgressBar } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 const LoadingModal = props => (
   <Modal
@@ -8,11 +8,10 @@ const LoadingModal = props => (
     bsSize="small"
     backdrop={false}
   >
-    <Modal.Header>
-      <Modal.Title>Loading...</Modal.Title>
-    </Modal.Header>
     <Modal.Body>
-      <ProgressBar now={100} active />
+      <div className="text-center">
+        <i className="fa fa-spinner fa-spin fa-lg"></i>&nbsp;&nbsp;<span>Processing...</span>
+      </div>
     </Modal.Body>
   </Modal>
 );

@@ -16,10 +16,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const Discogs = require('disconnect').Client;
-const col = new Discogs().user().collection();
 
+const col = new Discogs().user().collection();
 app.get('/api/collection', (req, res) => {
   col.getReleases('j0k3rman', 0, req.query, (err, data) => {
+    res.json(data);
+  });
+});
+
+const db = new Discogs().database();
+app.get('/api/release/:id', (req, res) => {
+  const releaseId = req.params.id;
+  db.getRelease(releaseId, (err, data) => {
     res.json(data);
   });
 });

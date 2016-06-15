@@ -1,14 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router';
 const moment = require('moment');
 
 const CollectionItem = props => {
-  const { release } = props;
+  const { date_added } = props.release;
+  const { artists, title, year, id } = props.release.basic_information;
   return (
     <tr>
-      <td>{release.basic_information.artists[0].name}</td>
-      <td>{release.basic_information.title}</td>
-      <td>{release.basic_information.year}</td>
-      <td>{moment(release.date_added).format('MMM D, YYYY')}</td>
+      <td>{artists[0].name}</td>
+      <td>
+        <Link to={`/collection/${id}`}>
+          {title}
+        </Link>
+      </td>
+      <td>{year}</td>
+      <td>{moment(date_added).format('MMM D, YYYY')}</td>
     </tr>
   );
 };
