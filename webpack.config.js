@@ -1,5 +1,3 @@
-'use strict';
-
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -34,9 +32,9 @@ module.exports = {
       test: /\.js?$/,
       exclude: /node_modules/,
       loader: 'babel',
-      // query: {
-      //   "presets": ["react", "es2015", "stage-0", "react-hmre"]
-      // }
+      query: {
+        "presets": ["react", "es2015", "stage-0", "react-hmre"]
+      }
     }, {
       test: /\.json?$/,
       loader: 'json'

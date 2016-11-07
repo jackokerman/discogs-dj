@@ -1,2 +1,2 @@
 # react-discogs-dj
-React app that lets you manage discogs tracks for djing.
+React app that lets you manage Discogs tracks for djing.

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { printArtists } from './utils.js';
 const moment = require('moment');
 
 const CollectionItem = props => {
@@ -7,7 +8,7 @@ const CollectionItem = props => {
   const { artists, title, year, id } = props.release.basic_information;
   return (
     <tr>
-      <td>{artists[0].name}</td>
+      <td>{printArtists(artists)}</td>
       <td>
         <Link to={`/collection/${id}`}>
           {title}

@@ -6,16 +6,14 @@ import {
   Col,
   Table,
   Pagination,
-  Form,
-  FormGroup,
-  FormControl,
 } from 'react-bootstrap';
 
 import CollectionHeader from './CollectionHeader.js';
 import CollectionItem from './CollectionItem.js';
+import ShowPerPage from './ShowPerPage.js';
 import LoadingModal from './LoadingModal.js';
 
-export default class CollectionList extends React.Component {
+export default class CollectionContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -85,22 +83,11 @@ export default class CollectionList extends React.Component {
   }
 
   render() {
-    const first = (this.state.activePage - 1) * this.state.perPage + 1;
-    let last;
-    if (this.state.activePage === this.state.pages) {
-      last = this.state.items;
-    } else {
-      last = first + this.state.perPage - 1;
-    }
-    const showing = `Showing ${first} to ${last} of ${this.state.items} items`;
-
-    const paginationStyle = { marginTop: '0' };
-
     return (
       <div>
         <Grid>
           <Row>
-            <Col>
+            <Col md={12}>
               <h3>Collection</h3>
               <Table bordered striped>
                 <thead>
@@ -116,24 +103,18 @@ export default class CollectionList extends React.Component {
                   )}
                 </tbody>
               </Table>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
               <div className="pull-left">
-                <Form inline>
-                  <FormGroup>
-                    <FormControl.Static>{showing}&nbsp;</FormControl.Static>
-                    <FormControl
-                      componentClass="select"
-                      value={this.state.perPage}
-                      onChange={this.handlePerPageChange}
-                    >
-                      {this.state.perPageOpts.map((perPage, i) =>
-                        <option key={i} value={perPage}>
-                          {perPage}
-                        </option>
-                      )}
-                    </FormControl>
-                    <FormControl.Static>&nbsp;items per page</FormControl.Static>
-                  </FormGroup>
-                </Form>
+                <ShowPerPage
+                  items={this.state.items}
+                  page={this.state.activePage}
+                  perPage={this.state.perPage}
+                  perPageOpts={[10, 25, 50, 100]}
+                  onPerPageChange={this.handlePerPageChange}
+                />
               </div>
               <div className="pull-right">
                 <Pagination
@@ -144,13 +125,13 @@ export default class CollectionList extends React.Component {
                   maxButtons={4}
                   activePage={this.state.activePage}
                   onSelect={this.handleSelect}
-                  style={paginationStyle}
+                  style={{ marginTop: '0' }}
                 />
               </div>
             </Col>
           </Row>
-          <LoadingModal show={this.state.loading} />
         </Grid>
+        <LoadingModal show={this.state.loading} />
       </div>
     );
   }

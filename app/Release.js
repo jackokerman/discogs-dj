@@ -1,48 +1,54 @@
 import React from 'react';
-import request from 'superagent';
-import { Grid } from 'react-bootstrap';
+import { Grid, Row, Col, Image } from 'react-bootstrap';
 
-import LoadingModal from './LoadingModal.js';
+import ReleaseTitle from './ReleaseTitle';
+import ReleaseHeader from './ReleaseHeader';
+import TrackList from './TrackList.js';
 
 export default class Release extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      release: {},
-    };
-    this.getRelease = this.getRelease.bind(this);
-  }
-
-  componentDidMount() {
-    this.getRelease();
-  }
-
-  getRelease() {
-    this.setState({ loading: true }, () => {
-      request
-      .get(`/api/release/${this.props.params.release}`)
-      .end((err, res) => {
-        this.setState({
-          loading: false,
-          release: res.body,
-        });
-      });
-    });
-  }
-
   render() {
+    const { release } = this.props;
+    if (release === null) {
+      return null;
+    }
+
     return (
       <Grid>
-        <h1>Release</h1>
-        <p>{this.props.params.release}</p>
-        <LoadingModal show={this.state.loading} />
+        <Row>
+          <Col md={2}>
+            <Image src={release.imageUrl} responsive />
+          </Col>
+          <Col md={9}>
+            <ReleaseTitle
+              artist={release.artist}
+              title={release.title}
+              url={release.url}
+            />
+            <ReleaseHeader
+              label={release.label}
+              releaseDate={release.releaseDate}
+              styles={release.styles}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <TrackList
+              tracklist={release.tracklist}
+              showTrackModal={this.props.showTrackModal}
+              removeTrack={this.props.removeTrack}
+            />
+          </Col>
+        </Row>
       </Grid>
     );
   }
+
 }
 
 Release.propTypes = {
-  params: React.PropTypes.object,
+  release: React.PropTypes.object,
+  showTrackModal: React.PropTypes.func,
+  removeTrack: React.PropTypes.func,
 };

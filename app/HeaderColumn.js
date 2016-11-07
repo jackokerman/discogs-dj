@@ -17,14 +17,10 @@ class HeaderColumn extends React.Component {
 
   render() {
     const { sort } = this.props;
-    let sortIcon;
-    if (sort) {
-      const sortClass = `fa fa-sort-${sort}`;
-      sortIcon = <i className={sortClass}></i>;
-    }
+    const sortClass = sort ? `sort-${sort}` : 'sort';
     return (
       <th onClick={this.handleClick}>
-        {this.props.children} {sortIcon}
+        {this.props.children} <i className={`fa fa-${sortClass}`}></i>
       </th>
     );
   }
