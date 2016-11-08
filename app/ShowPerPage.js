@@ -4,8 +4,11 @@ import { Form, FormGroup, FormControl } from 'react-bootstrap';
 const ShowPerPage = (props) => {
   const { items, page, perPage, perPageOpts } = props;
   const numPages = Math.ceil(items / perPage);
-  const first = (page - 1) * perPage + 1;
-  const last = page === numPages ? items : first + perPage - 1;
+  const first = items === 0 ? 0 : (page - 1) * perPage + 1;
+  let last = 0;
+  if (items > 0) {
+    last = page === numPages ? items : first + perPage - 1;
+  }
   const showing = `Showing ${first} to ${last} of ${items}`;
   return (
     <Form inline>

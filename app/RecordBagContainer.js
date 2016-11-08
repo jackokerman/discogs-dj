@@ -5,7 +5,7 @@ import ShowPerPage from './ShowPerPage.js';
 import { Link } from 'react-router';
 import orderBy from 'lodash/orderBy';
 import { Table, sort } from 'reactabular';
-import { Grid, Row, Col, Pagination } from 'react-bootstrap';
+import { Grid, Row, Col, Pagination, FormGroup, FormControl } from 'react-bootstrap';
 
 export default class RecordBagContainer extends React.Component {
 
@@ -94,9 +94,11 @@ export default class RecordBagContainer extends React.Component {
         page: 1,
         perPage: 25,
       },
+      search: '',
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handlePerPageChange = this.handlePerPageChange.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -125,23 +127,58 @@ export default class RecordBagContainer extends React.Component {
     });
   }
 
+  handleSearchChange(event) {
+    this.setState({
+      search: event.target.value,
+      pagination: Object.assign({}, this.state.pagination, { page: 1 }),
+    });
+  }
+
   render() {
-    const { tracks, columns, sortingColumns, pagination } = this.state;
+    // Sort
+    const { tracks, columns, sortingColumns } = this.state;
     const sortedTracks = sort.sorter({
       columns,
       sortingColumns,
       sort: orderBy,
     })(tracks);
-    const numPages = Math.ceil(tracks.length / pagination.perPage);
-    const start = (pagination.page - 1) * pagination.perPage;
-    const end = start + pagination.perPage;
-    const rows = sortedTracks.slice(start, end);
+
+    // Search
+    // console.log(sortedTracks.length);
+    const { search } = this.state;
+    const filteredTracks = sortedTracks.filter((track) => {
+      const re = new RegExp(search, 'i');
+      const { artist, title, releaseName } = track;
+      return re.test(artist) || re.test(title) || re.test(releaseName);
+    });
+    // console.log(filteredTracks.length);
+
+    // Pagination
+    const { page, perPage } = this.state.pagination;
+    const numPages = Math.ceil(filteredTracks.length / perPage);
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    const rows = filteredTracks.slice(start, end);
+    // console.log(rows.length);
+
     return (
       <div>
         <Grid>
+          <h3>Record Bag</h3>
+          <Row>
+            <Col md={4}>
+              <FormGroup>
+                <FormControl
+                  type="text"
+                  placeholder="Search"
+                  value={search}
+                  onChange={this.handleSearchChange}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
           <Row>
             <Col md={12}>
-              <h3>Record Bag</h3>
               <Table.Provider className="table table-bordered table-striped" columns={columns}>
                 <Table.Header />
                 <Table.Body rows={rows} rowKey="_id" />
@@ -152,9 +189,9 @@ export default class RecordBagContainer extends React.Component {
             <Col md={12}>
               <div className="pull-left">
                 <ShowPerPage
-                  items={tracks.length}
-                  page={pagination.page}
-                  perPage={pagination.perPage}
+                  items={filteredTracks.length}
+                  page={page}
+                  perPage={perPage}
                   perPageOpts={[10, 25, 50, 100]}
                   onPerPageChange={this.handlePerPageChange}
                 />
@@ -166,7 +203,7 @@ export default class RecordBagContainer extends React.Component {
                   boundaryLinks
                   items={numPages}
                   maxButtons={4}
-                  activePage={pagination.page}
+                  activePage={page}
                   onSelect={this.handlePageChange}
                   style={{ marginTop: '0' }}
                 />
