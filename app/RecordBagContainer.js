@@ -144,14 +144,12 @@ export default class RecordBagContainer extends React.Component {
     })(tracks);
 
     // Search
-    // console.log(sortedTracks.length);
     const { search } = this.state;
     const filteredTracks = sortedTracks.filter((track) => {
       const re = new RegExp(search, 'i');
       const { artist, title, releaseName } = track;
       return re.test(artist) || re.test(title) || re.test(releaseName);
     });
-    // console.log(filteredTracks.length);
 
     // Pagination
     const { page, perPage } = this.state.pagination;
@@ -159,7 +157,6 @@ export default class RecordBagContainer extends React.Component {
     const start = (page - 1) * perPage;
     const end = start + perPage;
     const rows = filteredTracks.slice(start, end);
-    // console.log(rows.length);
 
     return (
       <div>
