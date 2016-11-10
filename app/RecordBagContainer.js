@@ -145,10 +145,10 @@ export default class RecordBagContainer extends React.Component {
 
     // Search
     const { search } = this.state;
+    const re = new RegExp(search, 'i');
     const filteredTracks = sortedTracks.filter((track) => {
-      const re = new RegExp(search, 'i');
       const { artist, title, releaseName } = track;
-      return re.test(artist) || re.test(title) || re.test(releaseName);
+      return [artist, title, releaseName].some(el => re.test(el));
     });
 
     // Pagination
