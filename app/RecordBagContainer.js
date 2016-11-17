@@ -2,10 +2,14 @@ import React from 'react';
 import request from 'superagent';
 import LoadingModal from './LoadingModal.js';
 import ShowPerPage from './ShowPerPage.js';
+import BpmRangeSlider from './BpmRangeSlider.js';
 import { Link } from 'react-router';
 import orderBy from 'lodash/orderBy';
 import { Table, sort } from 'reactabular';
 import { Grid, Row, Col, Pagination, FormGroup, FormControl } from 'react-bootstrap';
+
+const getBpmMax = (tracks) => Math.max.apply(Math, tracks.map(t => t.bpm));
+const getBpmMin = (tracks) => Math.min.apply(Math, tracks.map(t => t.bpm));
 
 export default class RecordBagContainer extends React.Component {
 
@@ -95,19 +99,23 @@ export default class RecordBagContainer extends React.Component {
         perPage: 25,
       },
       search: '',
+      bpmRange: [],
     };
     this.handlePageChange = this.handlePageChange.bind(this);
     this.handlePerPageChange = this.handlePerPageChange.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.handleBpmRangeChange = this.handleBpmRangeChange.bind(this);
   }
 
   componentDidMount() {
     request
       .get('/api/bag')
       .end((err, res) => {
+        const tracks = res.body;
         this.setState({
           loading: false,
-          tracks: res.body,
+          tracks,
+          bpmRange: [getBpmMin(tracks), getBpmMax(tracks)],
         });
       });
   }
@@ -134,7 +142,17 @@ export default class RecordBagContainer extends React.Component {
     });
   }
 
+  handleBpmRangeChange(value) {
+    this.setState({
+      bpmRange: value,
+    });
+  }
+
   render() {
+    if (this.state.tracks.length <= 0) {
+      return null;
+    }
+
     // Sort
     const { tracks, columns, sortingColumns } = this.state;
     const sortedTracks = sort.sorter({
@@ -143,12 +161,14 @@ export default class RecordBagContainer extends React.Component {
       sort: orderBy,
     })(tracks);
 
-    // Search
-    const { search } = this.state;
+    // Filter
+    const { search, bpmRange } = this.state;
     const re = new RegExp(search, 'i');
     const filteredTracks = sortedTracks.filter((track) => {
-      const { artist, title, releaseName } = track;
-      return [artist, title, releaseName].some(el => re.test(el));
+      const { artist, title, releaseName, bpm } = track;
+      return [artist, title, releaseName].some(el => re.test(el))
+        && bpm >= bpmRange[0]
+        && bpm <= bpmRange[1];
     });
 
     // Pagination
@@ -172,6 +192,18 @@ export default class RecordBagContainer extends React.Component {
                   onChange={this.handleSearchChange}
                 />
               </FormGroup>
+            </Col>
+            <Col md={5} mdOffset={3}>
+              <BpmRangeSlider
+                range
+                value={this.state.bpmRange}
+                min={getBpmMin(tracks)}
+                max={getBpmMax(tracks)}
+                // min={75}
+                // max={150}
+                allowCross={false}
+                onChange={this.handleBpmRangeChange}
+              />
             </Col>
           </Row>
           <Row>

@@ -1,3 +1,49 @@
 .fa-sort {
   color: #ccc;
 }
+
+.rc-slider {
+  padding-top: 15px;
+  padding-bottom: 19px;
+}
+
+.rc-slider-handle {
+  border-color: #337ab7;
+}
+
+.rc-slider-handle:hover {
+  border-color: #23527c;
+}
+
+.rc-slider-track {
+  background-color: #337ab7;
+}
+
+.bpm-range-slider .bpm-label {
+  float: left;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  line-height: 20px;
+  padding-right: 5px;
+}
+
+.bpm-range-slider .bpm-display {
+  float: right;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  line-height: 20px;
+  padding-left: 5px;
+}
+
+.bpm-range-slider .slider-container {
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: auto;
+}
+
+/*.bpm-range-slider .rc-slider {
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: inherit;
+}*/
