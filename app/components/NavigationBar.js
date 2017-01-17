@@ -2,7 +2,7 @@ import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-const Container = props => (
+const NavigationBar = props => (
   <div>
     <Navbar inverse>
       <Navbar.Header>
@@ -21,8 +21,8 @@ const Container = props => (
   </div>
 );
 
-Container.propTypes = {
+NavigationBar.propTypes = {
   children: React.PropTypes.element.isRequired,
 };
 
-export default Container;
+export default NavigationBar;

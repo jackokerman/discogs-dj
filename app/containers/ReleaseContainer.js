@@ -1,8 +1,8 @@
 import React from 'react';
 import request from 'superagent';
-import LoadingModal from './LoadingModal.js';
-import Release from './Release.js';
-import AddTrackModal from './AddTrackModal.js';
+import LoadingModal from '../components/LoadingModal.js';
+import Release from '../components/Release.js';
+import AddTrackModal from '../components/AddTrackModal.js';
 
 export default class ReleaseContainer extends React.Component {
 

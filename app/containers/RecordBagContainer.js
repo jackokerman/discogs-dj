@@ -1,8 +1,8 @@
 import React from 'react';
 import request from 'superagent';
-import LoadingModal from './LoadingModal.js';
-import ShowPerPage from './ShowPerPage.js';
-import BpmRangeSlider from './BpmRangeSlider.js';
+import LoadingModal from '../components/LoadingModal.js';
+import ShowPerPage from '../components/ShowPerPage.js';
+import BpmRangeSlider from '../components/BpmRangeSlider.js';
 import { Link } from 'react-router';
 import orderBy from 'lodash/orderBy';
 import { Table, sort } from 'reactabular';

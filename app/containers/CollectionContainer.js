@@ -8,10 +8,10 @@ import {
   Pagination,
 } from 'react-bootstrap';
 
-import CollectionHeader from './CollectionHeader.js';
-import CollectionItem from './CollectionItem.js';
-import ShowPerPage from './ShowPerPage.js';
-import LoadingModal from './LoadingModal.js';
+import CollectionHeader from '../components/CollectionHeader.js';
+import CollectionItem from '../components/CollectionItem.js';
+import ShowPerPage from '../components/ShowPerPage.js';
+import LoadingModal from '../components/LoadingModal.js';
 
 export default class CollectionContainer extends React.Component {
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import CollectionContainer from './CollectionContainer.js';
-import ReleaseContainer from './ReleaseContainer.js';
-import Container from './Container.js';
-import RecordBagContainer from './RecordBagContainer.js';
+import CollectionContainer from './containers/CollectionContainer.js';
+import ReleaseContainer from './containers/ReleaseContainer.js';
+import Container from './components/NavigationBar.js';
+import RecordBagContainer from './containers/RecordBagContainer.js';
 import { Router, Route, hashHistory } from 'react-router';
 
 const App = () => (

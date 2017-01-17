@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { printArtists } from './utils.js';
+import { printArtists } from '../utils.js';
 const moment = require('moment');
 
 const CollectionItem = props => {
