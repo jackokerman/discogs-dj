@@ -199,8 +199,6 @@ export default class RecordBagContainer extends React.Component {
                 value={this.state.bpmRange}
                 min={getBpmMin(tracks)}
                 max={getBpmMax(tracks)}
-                // min={75}
-                // max={150}
                 allowCross={false}
                 onChange={this.handleBpmRangeChange}
               />
