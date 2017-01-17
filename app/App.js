@@ -8,7 +8,7 @@ import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 const App = () => (
   <Router history={hashHistory}>
     <Route path="/" component={Container}>
-      <IndexRedirect to="/collection" />
+      <IndexRedirect to="/bag" />
       <Route path="collection" component={CollectionContainer} />
       <Route path="collection/:release" component={ReleaseContainer} />
       <Route path="bag" component={RecordBagContainer} />
