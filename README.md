@@ -17,3 +17,12 @@ After cloning the repository, perform an `npm install` in the project root to in
 ### Configuration
 Every application that consumes information from the Discogs API needs a Consumer Key and Secret. To generate these, go to your [Developer Settings](https://www.discogs.com/settings/developers), and create a new application. Additionally, in order to access your collection data, Discogs DJ needs you discogs username. Specify your `username`, `consumerKey`, and `consumerSecret` in [config.json](config.json)
 
+### Run
+To run the application, you must have MongoDB instance running: 
+```
+mongod
+```
+Then, run the development server:
+```
+npm run dev
+```
