@@ -15,4 +15,5 @@ Of course you'll also need a [Discogs](https://www.discogs.com/) account with at
 After cloning the repository, perform an ```npm install``` in the project root to install all of Discogs DJ's dependencies.
 
 ### Configuration
-Discogs DJ needs to know your Discogs username in order to access your collection data.
+Every application that consumes information from the Discogs API needs a Consumer Key and Secret. To generate these, go to your [Developer Settings](https://www.discogs.com/settings/developers), and create a new application. Additionally, in order to access your collection data, Discogs DJ needs you discogs username. Specify your username, consumerKey, and consumerSecret in [config.json](config.json)
+
